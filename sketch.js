@@ -156,9 +156,7 @@ function drawTitle() {
   text("Divergências de Temperatura ao Longo dos Anos", 35, 70);
 }
 
-// --------------------------------------------------
-// MAPA
-// --------------------------------------------------
+// Mapa mundo 
 
 function drawWorldMap() {
   let mapWidth = width - 60;
@@ -216,9 +214,7 @@ function drawWorldMap() {
   }
 }
 
-// --------------------------------------------------
-// DESENHAR PAÍSES
-// --------------------------------------------------
+//  Países 
 
 function drawCountry(polygons, scaleMap, offsetX, offsetY) {
   for (let ring of polygons) {
@@ -238,9 +234,7 @@ function drawCountry(polygons, scaleMap, offsetX, offsetY) {
   }
 }
 
-// --------------------------------------------------
-// CORES
-// --------------------------------------------------
+// Cores com base na temperatura
 
 function getCountryColor(value) {
   if (value === undefined || value === null) {
@@ -251,8 +245,8 @@ function getCountryColor(value) {
   amount = constrain(amount, 0, 1);
 
   return lerpColor(
-    color(45, 120, 145),
-    color(240, 95, 55),
+    color(102, 255, 204),
+    color(242, 8, 25),
     amount
   );
 }
@@ -300,13 +294,13 @@ function drawInformation() {
   }
 
   // LEGENDA
-  fill(45, 120, 145);
+  fill(102, 255, 204);
   rect(width - 230, panelY - 20, 25, 12);
 
   fill(180);
   text("Lower anomaly", width - 195, panelY - 10);
 
-  fill(240, 95, 55);
+  fill(242, 8, 25);
   rect(width - 230, panelY + 3, 25, 12);
 
   fill(180);
