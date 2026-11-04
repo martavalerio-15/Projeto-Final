@@ -14,15 +14,13 @@ const MAP_URL = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/
 
 const TEMP_URL = "https://ourworldindata.org/grapher/annual-temperature-anomalies.csv";
 
-// --------------------------------------------------
-// SETUP
-// --------------------------------------------------
+// Setup inicial
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   textFont("Arial");
 
-  // CARREGAR MAPA
+  // Load do mapa mundo
   loadJSON(
     MAP_URL,
     function(data) {
@@ -35,7 +33,7 @@ function setup() {
     }
   );
 
-  // CARREGAR TEMPERATURAS
+  // Temperaturas 
   loadStrings(
     TEMP_URL,
     function(lines) {
@@ -101,9 +99,7 @@ function setup() {
   );
 }
 
-// --------------------------------------------------
-// LER LINHAS CSV
-// --------------------------------------------------
+// ler CSV em cada linha
 
 function parseCSVLine(line) {
   let result = [];
@@ -128,9 +124,7 @@ function parseCSVLine(line) {
   return result;
 }
 
-// --------------------------------------------------
-// DRAW
-// --------------------------------------------------
+// draw do fundo e mapa
 
 function draw() {
   background(17, 27, 39);
@@ -148,20 +142,18 @@ function draw() {
   drawInformation();
 }
 
-// --------------------------------------------------
-// TÍTULO
-// --------------------------------------------------
+// Titulo (texto)
 
 function drawTitle() {
   noStroke();
 
   fill(255);
   textSize(24);
-  text("ATLAS OF A CHANGING PLANET", 35, 45);
+  text("Mapa das Alterações Climáticas", 35, 45);
 
   fill(160);
   textSize(12);
-  text("ANNUAL TEMPERATURE ANOMALIES", 35, 70);
+  text("Divergências de Temperatura ao Longo dos Anos", 35, 70);
 }
 
 // --------------------------------------------------
