@@ -251,9 +251,7 @@ function getCountryColor(value) {
   );
 }
 
-// --------------------------------------------------
-// INFORMAÇÃO E BOTÕES
-// --------------------------------------------------
+// Informaçoes do painel e botões que mudam o ano
 
 function drawInformation() {
   let panelY = height - 75;
@@ -262,7 +260,7 @@ function drawInformation() {
   noStroke();
   textSize(18);
 
-  text("YEAR: " + selectedYear, 35, panelY);
+  text("ANO: " + selectedYear, 35, panelY);
 
   // ANO ANTERIOR
   fill(48, 63, 78);
@@ -284,13 +282,13 @@ function drawInformation() {
 
   if (dataLoaded) {
     fill(150, 210, 170);
-    text("TEMPERATURE DATA LOADED", 270, panelY - 3);
+    text("Dados da Temperatura Carregados", 270, panelY - 3);
   } else if (dataError) {
     fill(255, 100, 90);
-    text("COULD NOT LOAD DATA", 270, panelY - 3);
+    text("NÃO FOI POSSÍVEL CARREGAR OS DADOS", 270, panelY - 3);
   } else {
     fill(180);
-    text("LOADING DATA...", 270, panelY - 3);
+    text("A carregar os dados...", 270, panelY - 3);
   }
 
   // LEGENDA
@@ -298,18 +296,17 @@ function drawInformation() {
   rect(width - 230, panelY - 20, 25, 12);
 
   fill(180);
-  text("Lower anomaly", width - 195, panelY - 10);
+  text("Divergência Baixa", width - 195, panelY - 10);
 
   fill(242, 8, 25);
   rect(width - 230, panelY + 3, 25, 12);
 
   fill(180);
-  text("Higher anomaly", width - 195, panelY + 13);
+  text("Divergência Alta", width - 195, panelY + 13);
 }
 
-// --------------------------------------------------
-// MUDAR ANO
-// --------------------------------------------------
+
+// Mudar de Ano- botões a funcionar com o rato
 
 function mousePressed() {
   let panelY = height - 75;
@@ -333,9 +330,7 @@ function mousePressed() {
   }
 }
 
-// --------------------------------------------------
-// REDIMENSIONAR
-// --------------------------------------------------
+// Redimensionar o Canvas em diferentes ecrãs
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
