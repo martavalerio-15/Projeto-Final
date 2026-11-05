@@ -224,6 +224,10 @@ function drawTitle() {
   fill(160);
   textSize(12);
   text("Divergências de Temperatura ao Longo dos Anos", 35, 70);
+
+  fill(160);
+  textSize(12);
+  text("Emissões de CO2 por País em cada ano", 35, 95);
 }
 
 // Mapa mundo 
