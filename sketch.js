@@ -543,18 +543,20 @@ function mousePressed() {
 
   // BOTÃO CO2
 
+ // LIGAR / DESLIGAR CO2
+
   if (
-  mouseX > width - 145 &&
-  mouseX < width - 35 &&
-  mouseY > panelY - 22 &&
-  mouseY < panelY + 10
+  mouseX > 35 &&
+  mouseX < 160 &&
+  mouseY > 115 &&
+  mouseY < 145
   ) {
   showCO2 = !showCO2;
 
   if (!showCO2) {
     smokeParticles = [];
   }
-}
+ }
 }
 
 // Redimensionar o Canvas em diferentes ecrãs
