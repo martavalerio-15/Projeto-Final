@@ -1,3 +1,4 @@
 # Marta Valério- Projeto Final
 
-Estudo das Alterações Climáticas, ligação ao livro de Artista da UC: Desenho V. 
+Este projeto consiste num estudo visual das alterações climáticas, relacionado com o conceito de Antropoceno explorado no Livro de Artista que está a ser desenvolvido na UC de Desenho V. Procuro explorar a pegada deixada pelo ser humano na Terra e a evolução do seu impacto ao longo dos anos.
+Através de um mapa-mundo interativo, são representadas as anomalias da temperatura e as emissões de CO₂ por país, entre 1940 e 2025, recorrendo a cores e partículas. O projeto foi desenvolvido com recurso ao ChatGPT como ferramenta de apoio à programação e resolução de alguns problemas. Importante frisar que as todas as decisões visuais e conceptuais foram desenvolvidas por mim.
