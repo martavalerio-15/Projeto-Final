@@ -3,6 +3,7 @@ let temperatureData = {}; // dados de temperatura
 let co2Data = {}; // dados de CO2
 let smokeParticles = []; // partículas de CO2
 let showCO2 = true; // mostrar partículas de CO2
+let hoveredCountry = null; // mostrar país onde está o rato
 
 let selectedYear = 2024;
 let minYear = 1940;
@@ -244,6 +245,8 @@ function drawWorldMap() {
   let offsetX = (width - 360 * scaleMap) / 2;
   let offsetY = 125 + (mapHeight - 170 * scaleMap) / 2;
 
+  hoveredCountry = null;
+
   for (let country of worldMap.features) {
     let properties = country.properties;
 
@@ -259,12 +262,20 @@ function drawWorldMap() {
 
     let value = temperatureData[code + "_" + selectedYear];
 
+    let geometry = country.geometry;
+
+    // DETETAR PAÍS ONDE ESTÁ O RATO
+    if (countryContainsMouse(geometry, scaleMap, offsetX, offsetY)) {
+      hoveredCountry = {
+        name: properties.ADMIN || properties.NAME || "País",
+        code: code
+      };
+    }
+
     fill(getCountryColor(value));
 
     stroke(17, 27, 39);
     strokeWeight(0.5);
-
-    let geometry = country.geometry;
 
     if (geometry.type === "Polygon") {
       drawCountry(
