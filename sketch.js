@@ -12,9 +12,12 @@ let mapLoaded = false;
 let dataLoaded = false;
 let dataError = false;
 
+// URL's para sites com dados do mapa, temperatura e CO2
 const MAP_URL = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson";
 
 const TEMP_URL = "https://ourworldindata.org/grapher/annual-temperature-anomalies.csv";
+
+const CO2_URL = "https://ourworldindata.org/grapher/annual-co2-emissions-per-country.csv";
 
 // Setup inicial
 
@@ -52,12 +55,14 @@ function setup() {
         h.trim().toLowerCase() === "year"
       );
 
+
       let valueIndex = 3;
 
       if (codeIndex === -1 || yearIndex === -1) {
         console.log("Colunas não encontradas:", headers);
         dataError = true;
         return;
+
       }
 
       for (let i = 1; i < lines.length; i++) {
@@ -99,6 +104,66 @@ function setup() {
       console.log("Erro ao carregar temperaturas:", error);
     }
   );
+  // Dados de CO2
+loadStrings(
+  CO2_URL,
+  function(lines) {
+    console.log("Ficheiro de CO2 recebido!");
+    console.log("Primeira linha CO2:", lines[0]);
+
+    let headers = parseCSVLine(lines[0]);
+
+    let codeIndex = headers.findIndex(h =>
+      h.trim().toLowerCase() === "code"
+    );
+
+    let yearIndex = headers.findIndex(h =>
+      h.trim().toLowerCase() === "year"
+    );
+
+    let valueIndex = 3;
+
+    if (codeIndex === -1 || yearIndex === -1) {
+      console.log("Colunas de CO2 não encontradas:", headers);
+      return;
+    }
+
+    for (let i = 1; i < lines.length; i++) {
+      let row = parseCSVLine(lines[i]);
+
+      let code = row[codeIndex];
+      let year = row[yearIndex];
+      let rawValue = row[valueIndex];
+
+      if (
+        code &&
+        code.trim() !== "" &&
+        year &&
+        rawValue !== undefined &&
+        rawValue.trim() !== ""
+      ) {
+        let value = Number(rawValue);
+
+        if (Number.isFinite(value)) {
+          co2Data[code.trim() + "_" + year.trim()] = value;
+        }
+      }
+    }
+
+    console.log(
+      "Total de registos CO2:",
+      Object.keys(co2Data).length
+    );
+
+    console.log(
+      "Portugal CO2 2020:",
+      co2Data["PRT_2020"]
+    );
+  },
+  function(error) {
+    console.log("Erro ao carregar CO2:", error);
+  }
+);
 }
 
 // ler CSV em cada linha
