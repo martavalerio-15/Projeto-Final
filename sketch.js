@@ -1,6 +1,8 @@
 
 let worldMap;
-let temperatureData = {};
+let temperatureData = {}; // dados de temperatura 
+let co2Data = {}; // dados de CO2
+let smokeParticles = []; // partículas de CO2
 
 let selectedYear = 2020;
 let minYear = 1940;
