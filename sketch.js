@@ -200,6 +200,7 @@ function draw() {
 
   if (mapLoaded) {
     drawWorldMap();
+    drawSmoke();
   } else {
     fill(255);
     textSize(16);
@@ -317,6 +318,132 @@ function getCountryColor(value) {
     amount
   );
 }
+
+function drawSmoke() {
+  if (Object.keys(co2Data).length === 0) return;
+
+  let mapWidth = width - 60;
+  let mapHeight = height - 190;
+
+  let scaleMap = min(mapWidth / 360, mapHeight / 170);
+  let offsetX = (width - 360 * scaleMap) / 2;
+  let offsetY = 125 + (mapHeight - 170 * scaleMap) / 2;
+
+  // Encontrar as emissões máximas do ano
+  let maxEmission = 0;
+
+  for (let country of worldMap.features) {
+    let code = country.properties.ISO_A3_EH;
+
+    if (!code || code === "-99") {
+      code = country.properties.ISO_A3;
+    }
+
+    if (!code || code === "-99") {
+      code = country.properties.ADM0_A3;
+    }
+
+    let value = co2Data[code + "_" + selectedYear];
+
+    if (value > maxEmission) {
+      maxEmission = value;
+    }
+  }
+
+  if (maxEmission === 0) return;
+
+  // Criar fumo a partir dos países
+  for (let country of worldMap.features) {
+    let code = country.properties.ISO_A3_EH;
+
+    if (!code || code === "-99") {
+      code = country.properties.ISO_A3;
+    }
+
+    if (!code || code === "-99") {
+      code = country.properties.ADM0_A3;
+    }
+
+    let value = co2Data[code + "_" + selectedYear];
+
+    if (!value || value <= 0) continue;
+
+    let intensity = Math.log(value + 1) / Math.log(maxEmission + 1);
+
+    let bounds = {
+      minLon: 180,
+      maxLon: -180,
+      minLat: 90,
+      maxLat: -90
+    };
+
+    collectSmokeCoordinates(country.geometry.coordinates, bounds);
+
+    let lon = (bounds.minLon + bounds.maxLon) / 2;
+    let lat = (bounds.minLat + bounds.maxLat) / 2;
+
+    let x = offsetX + (lon + 180) * scaleMap;
+    let y = offsetY + (85 - lat) * scaleMap;
+
+    if (random() < intensity * 0.12) {
+      smokeParticles.push({
+        x: x + random(-4, 4),
+        y: y,
+        vx: random(-0.4, 0.4),
+        vy: random(-1.2, -0.4),
+        life: 100,
+        size: random(5, 12)
+      });
+    }
+  }
+
+  // Desenhar as partículas
+  noStroke();
+
+  for (let i = smokeParticles.length - 1; i >= 0; i--) {
+    let p = smokeParticles[i];
+
+    p.x += p.vx + sin(frameCount * 0.04) * 0.3;
+    p.y += p.vy;
+    p.life--;
+    p.size += 0.06;
+
+    let alpha = map(p.life, 0, 100, 0, 65);
+
+    fill(255, 100, 35, alpha);
+    ellipse(p.x, p.y, p.size * 1.5, p.size * 2);
+
+    fill(255, 150, 70, alpha * 0.5);
+    ellipse(p.x + 3, p.y - 3, p.size, p.size * 1.5);
+
+    if (p.life <= 0) {
+      smokeParticles.splice(i, 1);
+    }
+  }
+
+  // Limitar o número de partículas
+  if (smokeParticles.length > 1500) {
+    smokeParticles.splice(0, smokeParticles.length - 1500);
+  }
+}
+
+// Encontrar a posição dos países
+function collectSmokeCoordinates(coords, bounds) {
+  if (typeof coords[0] === "number") {
+    let lon = coords[0];
+    let lat = coords[1];
+
+    bounds.minLon = Math.min(bounds.minLon, lon);
+    bounds.maxLon = Math.max(bounds.maxLon, lon);
+    bounds.minLat = Math.min(bounds.minLat, lat);
+    bounds.maxLat = Math.max(bounds.maxLat, lat);
+  } else {
+    for (let item of coords) {
+      collectSmokeCoordinates(item, bounds);
+    }
+  }
+}
+
 
 // Informaçoes do painel e botões que mudam o ano
 
