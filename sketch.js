@@ -532,6 +532,7 @@ function mousePressed() {
     mouseY < panelY + 10
   ) {
     selectedYear = max(minYear, selectedYear - 1);
+    smokeParticles = [];
   }
 
   if (
@@ -541,6 +542,7 @@ function mousePressed() {
     mouseY < panelY + 10
   ) {
     selectedYear = min(maxYear, selectedYear + 1);
+    smokeParticles = [];
   }
 
   // BOTÃO CO2
