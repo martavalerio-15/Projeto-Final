@@ -410,7 +410,7 @@ function drawSmoke() {
 
     let alpha = map(p.life, 0, 100, 0, 65);
 
-    fill(255, 100, 35, alpha);
+    fill(233, 160, 68, alpha);
     ellipse(p.x, p.y, p.size * 1.5, p.size * 2);
 
     fill(255, 150, 70, alpha * 0.5);
