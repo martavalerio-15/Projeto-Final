@@ -1,11 +1,10 @@
-
 let worldMap;
 let temperatureData = {}; // dados de temperatura 
 let co2Data = {}; // dados de CO2
 let smokeParticles = []; // partículas de CO2
 let showCO2 = true; // mostrar partículas de CO2
 
-let selectedYear = 2020;
+let selectedYear = 2024;
 let minYear = 1940;
 let maxYear = 2025;
 
@@ -24,7 +23,7 @@ const CO2_URL = "https://ourworldindata.org/grapher/annual-co2-emissions-per-cou
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  textFont("Arial");
+  textFont("Helvetica");
 
   // Load do mapa mundo
   loadJSON(
@@ -96,8 +95,8 @@ function setup() {
       );
 
       console.log(
-        "Portugal 2020:",
-        temperatureData["PRT_2020"]
+        "Portugal 2024:",
+        temperatureData["PRT_2024"]
       );
     },
     function(error) {
@@ -157,8 +156,8 @@ loadStrings(
     );
 
     console.log(
-      "Portugal CO2 2020:",
-      co2Data["PRT_2020"]
+      "Portugal CO2 2024:",
+      co2Data["PRT_2024"]
     );
   },
   function(error) {
