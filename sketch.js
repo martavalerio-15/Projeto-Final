@@ -476,19 +476,18 @@ function drawInformation() {
 
   // BOTÃO CO2
 
-fill(48, 63, 78);
-noStroke();
-rect(width - 145, panelY - 22, 110, 32, 4);
+ fill(48, 63, 78);
+ noStroke();
+ rect(35, 115, 125, 30, 4);
 
-fill(255);
-textSize(12);
+ fill(255);
+ textSize(10);
 
-if (showCO2) {
-  text("CO2: LIGADO", width - 135, panelY - 3);
-} else {
-  text("CO2: DESLIGADO", width - 135, panelY - 3);
-}
-
+ if (showCO2) {
+  text("CO2: LIGADO", 48, 134);
+ } else {
+  text("CO2: DESLIGADO", 48, 134);
+ }
   // ESTADO DOS DADOS
   textSize(12);
 
