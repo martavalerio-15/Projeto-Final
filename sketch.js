@@ -3,6 +3,7 @@ let worldMap;
 let temperatureData = {}; // dados de temperatura 
 let co2Data = {}; // dados de CO2
 let smokeParticles = []; // partículas de CO2
+let showCO2 = true; // mostrar partículas de CO2
 
 let selectedYear = 2020;
 let minYear = 1940;
@@ -200,7 +201,9 @@ function draw() {
 
   if (mapLoaded) {
     drawWorldMap();
+     if (showCO2) {
     drawSmoke();
+  }
   } else {
     fill(255);
     textSize(16);
@@ -408,13 +411,13 @@ function drawSmoke() {
     p.life--;
     p.size += 0.06;
 
-    let alpha = map(p.life, 0, 100, 0, 65);
+    let alpha = map(p.life, 0, 120, 0, 65);
 
     fill(233, 160, 68, alpha);
-    ellipse(p.x, p.y, p.size * 1.5, p.size * 2);
+    ellipse(p.x, p.y, p.size * 1.5, p.size * 1);
 
     fill(255, 150, 70, alpha * 0.5);
-    ellipse(p.x + 3, p.y - 3, p.size, p.size * 1.5);
+    ellipse(p.x + 3, p.y - 3, p.size, p.size * 1);
 
     if (p.life <= 0) {
       smokeParticles.splice(i, 1);
@@ -422,8 +425,8 @@ function drawSmoke() {
   }
 
   // Limitar o número de partículas
-  if (smokeParticles.length > 1500) {
-    smokeParticles.splice(0, smokeParticles.length - 1500);
+  if (smokeParticles.length > 1000) {
+    smokeParticles.splice(0, smokeParticles.length - 1000);
   }
 }
 
@@ -470,6 +473,21 @@ function drawInformation() {
 
   fill(255);
   text(">", 216, panelY + 1);
+
+  // BOTÃO CO2
+
+fill(48, 63, 78);
+noStroke();
+rect(width - 145, panelY - 22, 110, 32, 4);
+
+fill(255);
+textSize(12);
+
+if (showCO2) {
+  text("CO2: LIGADO", width - 135, panelY - 3);
+} else {
+  text("CO2: DESLIGADO", width - 135, panelY - 3);
+}
 
   // ESTADO DOS DADOS
   textSize(12);
@@ -522,6 +540,21 @@ function mousePressed() {
   ) {
     selectedYear = min(maxYear, selectedYear + 1);
   }
+
+  // BOTÃO CO2
+
+  if (
+  mouseX > width - 145 &&
+  mouseX < width - 35 &&
+  mouseY > panelY - 22 &&
+  mouseY < panelY + 10
+  ) {
+  showCO2 = !showCO2;
+
+  if (!showCO2) {
+    smokeParticles = [];
+  }
+}
 }
 
 // Redimensionar o Canvas em diferentes ecrãs
