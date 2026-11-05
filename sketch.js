@@ -385,14 +385,14 @@ function drawSmoke() {
     let x = offsetX + (lon + 180) * scaleMap;
     let y = offsetY + (85 - lat) * scaleMap;
 
-    if (random() < intensity * 0.12) {
+    if (random() < intensity * 0.15) {
       smokeParticles.push({
-        x: x + random(-4, 4),
+        x: x + random(-1, 1),
         y: y,
-        vx: random(-0.4, 0.4),
-        vy: random(-1.2, -0.4),
-        life: 100,
-        size: random(5, 12)
+        vx: random(-0.5, 0.5),
+        vy: random(-1.0, -0.5),
+        life: 120,
+        size: random(3, 6)
       });
     }
   }
